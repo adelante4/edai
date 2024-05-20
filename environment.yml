@@ -1,0 +1,29 @@
+name: edai-env
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - alembic=1.8.1
+  - pymysql=1.0.2
+  - pytest=7.3.1
+  - python=3.10.4
+  - pip:
+    - scikit-learn~= 1.4.2
+    - seaborn~=0.13.2
+    - pandas~=2.0.3
+    - sqlalchemy~=2.0.21
+    - pydantic==2.6.4
+    - mysql-connector-python==8.0.33
+    - fastapi==0.110.0
+    - requests==2.31.0
+    - protobuf~=3.13.0
+    - uvicorn~=0.20.0
+    - beautifulsoup4
+    - greenlet==3.0.3
+    - llama-index==0.10.36
+    - llama-index-embeddings-azure-openai==0.1.9
+    - llama-index-llms-groq
+    - llama-index-experimental
+    - minijinja==2.0.1
+    - python-dotenv==1.0.1
+    - ragas==0.1.7
