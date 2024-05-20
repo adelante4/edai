@@ -1,6 +1,5 @@
 import logging
 
-import pandas as pd
 from llama_index.core.output_parsers import PydanticOutputParser
 from llama_index.core.program import LLMTextCompletionProgram
 from llama_index.experimental import PandasQueryEngine
@@ -9,11 +8,9 @@ from src.data.models.api_models import RequestAPIObject
 from src.data.models.response_models import PreprocessingOutput, FeatureEngOutput, VisualizationOutput, QuestionsOutput, \
     PythonCodeOutput, Code
 from src.data.notebook import Notebook
-from src.data.utils import dataframe_info
+from src.utils import dataframe_info
 from src.edai.prompts import preprocess_template, feature_eng_template, visualization_template, questions_template, \
     qa_template
-from llama_index.core import Settings
-from llama_index.llms.groq import Groq
 
 
 class Edai:
@@ -26,15 +23,21 @@ class Edai:
 
         self.query_engine = PandasQueryEngine(df=request_data.df, verbose=False)
 
-        self.nb = Notebook("data.csv")
+        self.nb = Notebook(dataset_name=request_data.filename)
 
     def eda(self):
         self.logger.info("Starting EDA...")
+
         preprocessing_steps = self.preprocess_data()
+        self.request_data.progress_bar.progress(0.2)
 
         self.feature_engineering(preprocessing_steps)
+        self.request_data.progress_bar.progress(0.4)
+
         self.visualize_data()
+        self.request_data.progress_bar.progress(0.6)
         self.qa()
+        self.request_data.progress_bar.progress(1)
         self.nb.save("edai_notebook.ipynb")
         self.logger.info("EDA complete")
 

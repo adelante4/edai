@@ -7,8 +7,6 @@ from pydantic import BaseModel, Field
 from llama_index.core.output_parsers import ChainableOutputParser
 from llama_index.experimental.query_engine import PandasQueryEngine
 
-from src.data.utils import dataframe_info
-
 
 class Code(BaseModel):
     title: str = Field(None, title="Title of the code")

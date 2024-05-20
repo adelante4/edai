@@ -1,3 +1,5 @@
+import pickle
+import streamlit as st
 import pandas as pd
 
 
@@ -44,3 +46,18 @@ def dataframe_info(df: pd.DataFrame, description: str, column_descriptions: dict
         info_str.append(col_info)
 
     return "\n".join(info_str)
+
+
+def load_dataframe(file):
+    file_type = file.name.split('.')[-1]
+    if file_type == 'pkl':
+        return pickle.load(file)
+    elif file_type == 'csv':
+        return pd.read_csv(file)
+    elif file_type in ['xls', 'xlsx']:
+        return pd.read_excel(file)
+    elif file_type == 'json':
+        return pd.read_json(file)
+    else:
+        st.error("Unsupported file type.")
+        return None
