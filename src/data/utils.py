@@ -22,7 +22,7 @@ def dataframe_info(df: pd.DataFrame, description: str, column_descriptions: dict
             f"    Sample Values: {sample_vals_str}\n"
         )
 
-        if pd.api.types.is_numeric_dtype(df[col]):
+        if pd.api.types.is_numeric_dtype(df[col]) and not pd.api.types.is_bool_dtype(df[col]):
             stats = (
                 f"Mean: {df[col].mean():.2f}, "
                 f"Median: {df[col].median():.2f}, "
